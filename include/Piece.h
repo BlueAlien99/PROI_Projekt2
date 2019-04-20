@@ -19,6 +19,7 @@ public:
 	Piece(const Piece &piece);
 	void setLocation(int x, int y);
 	std::pair<int,int> getLocation();
+	const Moves* getMoves();
 };
 
 class Pawn: public Piece{

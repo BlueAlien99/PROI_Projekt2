@@ -31,6 +31,11 @@ std::pair<int,int> Piece::getLocation(){
 	return make_pair(loc.first, loc.second);
 }
 
+const Piece::Moves* Piece::getMoves(){
+	const Moves* const ptr = mv;
+	return ptr;
+}
+
 Pawn::Pawn(){
 	mv->sq.push_back(make_pair(0, 1));
 	mv->sq.push_back(make_pair(1, 1));
