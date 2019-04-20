@@ -26,16 +26,6 @@ PieceInterface<T>::~PieceInterface(){
 }
 
 template <class T>
-PieceInterface<T>::PieceInterface(const PieceInterface &pint){
-
-}
-
-template <class T>
-PieceInterface<T>& PieceInterface<T>::operator=(const PieceInterface &pint){
-
-}
-
-template <class T>
 void PieceInterface<T>::setLocation(uint n, int x, int y){
 	if(n < pieces.size()){
 		pieces[n]->setLocation(x, y);

@@ -12,8 +12,6 @@ class PieceInterface{
 public:
 	PieceInterface(int n = 0);
 	~PieceInterface();
-	PieceInterface(const PieceInterface &pint);
-	PieceInterface& operator=(const PieceInterface &pint);
 	void setLocation(uint n, int x, int y);
 	std::pair<int,int> getLocation(uint n);
 	const Piece::Moves* getMoves();
