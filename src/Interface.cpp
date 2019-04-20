@@ -1,5 +1,11 @@
 #include "../include/Interface.h"
 
-class Interface::InterfaceImpl{
+#include "../include/Piece.h"
 
+#include <vector>
+
+using namespace std;
+
+class Interface::InterfaceImpl{
+	
 };
