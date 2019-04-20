@@ -6,7 +6,7 @@ INC := -lstdc++ -Iinclude/
 SRCDIR := src
 BUILDDIR := build
 TARGETDIR := bin
-TARGETFILE := Date
+TARGETFILE := Run
 TARGET := $(TARGETDIR)/$(TARGETFILE)
 
 SRCEXT := cpp
