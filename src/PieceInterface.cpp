@@ -13,7 +13,7 @@ PieceInterface<T>::PieceInterface(int n){
 		pieces.push_back(new T);
 	}
 	while(--n > 0){
-		pieces.push_back(new T(pieces[0]));
+		pieces.push_back(new T(*pieces[0]));
 	}
 }
 
@@ -52,3 +52,10 @@ template <class T>
 int PieceInterface<T>::getCount(){
 	return pieces.size();
 }
+
+template class PieceInterface<Pawn>;
+template class PieceInterface<Rook>;
+template class PieceInterface<Bishop>;
+template class PieceInterface<Queen>;
+template class PieceInterface<Knight>;
+template class PieceInterface<King>;

@@ -4,6 +4,7 @@
 #include "../include/PieceInterface.h"
 
 #include <cstdlib>
+#include <memory>
 #include <vector>
 
 using namespace std;
@@ -31,6 +32,18 @@ public:
 		y = yy;
 	}
 	~InterfaceImpl(){
-		delete pawns, rooks, bishops, queens, knights, kings, board;
+		delete pawns;
+		delete rooks;
+		delete bishops;
+		delete queens;
+		delete knights;
+		delete kings;
+		delete board;
 	}
 };
+
+Interface::Interface(uint xx, uint yy, uint pa, uint ro,
+					uint bi, uint qu, uint kn, uint ki){
+	impl = unique_ptr<InterfaceImpl>(new InterfaceImpl(xx, yy, pa, ro,
+													bi, qu, kn, ki));
+}
