@@ -1,6 +1,5 @@
 #include "../include/Interface.h"
 
-#include "../include/Utilities.h"
 #include "../include/PieceInterface.h"
 
 #include <cstdlib>
