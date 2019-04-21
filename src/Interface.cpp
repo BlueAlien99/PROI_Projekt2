@@ -19,6 +19,42 @@ class Interface::InterfaceImpl{
 	int *board;
 	uint x, y;
 
+	bool markStroke(uint xx, uint yy, int v, int type){	//DHV
+		if(type & 1){
+			for(uint i = xx; i < x*y; i += x){
+				if(board[i] < 0){
+					return 0;
+				}
+			}
+		}
+		if(type & 2){
+			for(uint i = yy*x; i < (yy+1)*x; i += 1){
+				if(board[i] < 0){
+					return 0;
+				}
+			}
+		}
+		if(type & 4){
+
+		}
+		if(type & 1){
+			for(uint i = xx; i < x*y; i += x){
+				board[i] += v;
+			}
+		}
+		if(type & 2){
+			for(uint i = yy*x; i < (yy+1)*x; i += 1){
+				board[i] += v;
+			}
+		}
+		if(type & 4){
+			{//for(int i = ; i < ; i += ){
+				//board[i] += v;
+			}
+		}
+		return 1;
+	}
+
 public:
 
 	InterfaceImpl(uint xx, uint yy, uint pa, uint ro,
@@ -62,9 +98,9 @@ public:
 	}
 
 	bool algorithm(){
-		if(algoPlace<Pawn>(pawns, 0, 0) && algoPlace<Rook>(rooks, 0, 0)
-		&& algoPlace<Bishop>(bishops, 0, 0) && algoPlace<Queen>(queens, 0, 0)
-		&& algoPlace<Knight>(knights, 0, 0) && algoPlace<King>(kings, 0, 0)){
+		if(algoPlace<Pawn>(pawns, 0, 0, 1) && algoPlace<Rook>(rooks, 0, 0, 1)
+		&& algoPlace<Bishop>(bishops, 0, 0, 1) && algoPlace<Queen>(queens, 0, 0, 1)
+		&& algoPlace<Knight>(knights, 0, 0, 1) && algoPlace<King>(kings, 0, 0, 1)){
 			printBoard();
 			return 1;
 		} else{
@@ -74,7 +110,10 @@ public:
 	}
 
 	template <class T>
-	bool algoPlace(PieceInterface<T> *piece, uint xx, uint yy){
+	bool algoPlace(PieceInterface<T> *piece, uint xx, uint yy, int n){
+		if(n > piece->getCount()){
+			return 1;
+		}
 		for(uint i = yy*x + xx; i < x*y; ++i){
 			uint ny = i/x;
 			uint nx = i - x*ny;
@@ -86,11 +125,11 @@ public:
 				continue;
 			}
 			//TODO place
-			if(){
-
+			
+			if(algoPlace<T>(piece, nx, ny, n+1)){
+				return 1;
 			}
 			//TODO revert
-			
 		}
 		return 0;
 	}
@@ -102,15 +141,22 @@ public:
 		}
 		cout<<endl<<"  ";
 		for(uint i = 0; i < x; ++i){
-			cout<<'#';
+			cout<<' ';
 		}
 		for(uint i = 0; i < y; ++i){
-			cout<<endl<<y%10<<'#';
+			cout<<endl<<i%10<<' ';
 			for(uint j = 0; j < x; ++j){
-				if(board[i*x + j] >= 0){
-					cout<<abs(board[i*x + j])%10;
+				if(board[i*x + j] > 0){
+					if(board[i*x + j] > 9){
+						cout<<'*';
+					} else{
+						cout<<abs(board[i*x + j])%10;
+					}
 				} else{
 					switch(board[i*x + j]){
+						case 0:
+							cout<<'-';
+							break;
 						case -10:
 							cout<<'P';
 							break;
@@ -144,6 +190,8 @@ Interface::Interface(uint xx, uint yy, uint pa, uint ro,
 	impl = unique_ptr<InterfaceImpl>(new InterfaceImpl(xx, yy, pa, ro,
 													bi, qu, kn, ki));
 }
+
+Interface::~Interface() = default;
 
 int Interface::isSqFree(uint xx, uint yy){
 	return impl->isSqFree(xx, yy);

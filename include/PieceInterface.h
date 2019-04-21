@@ -14,7 +14,8 @@ public:
 	~PieceInterface();
 	void setLocation(uint n, int x, int y);
 	std::pair<int,int> getLocation(uint n);
-	const Piece::Moves* getMoves();
+	int moveChar();
+	std::vector<std::pair<int,int> > moveSquares();
 	int getCount();
 };
 

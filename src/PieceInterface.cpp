@@ -41,11 +41,20 @@ pair<int,int> PieceInterface<T>::getLocation(uint n){
 }
 
 template <class T>
-const Piece::Moves* PieceInterface<T>::getMoves(){
+int PieceInterface<T>::moveChar(){
 	if(pieces.size() > 0){
-		return pieces[0]->getMoves();
+		return pieces[0]->moveChar();
 	}
-	return NULL;
+	return -1;
+}
+
+template <class T>
+vector<pair<int,int> > PieceInterface<T>::moveSquares(){
+	if(pieces.size() > 0){
+		return pieces[0]->moveSquares();
+	}
+	vector<pair<int,int> > vec;
+	return vec;
 }
 
 template <class T>
