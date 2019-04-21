@@ -10,6 +10,7 @@ public:
 	Interface(uint xx, uint yy, uint pa, uint ro,
 			uint bi, uint qu, uint kn, uint ki);
 	int isSqFree(uint xx, uint yy);
+	bool algorithm();
 	void printBoard();
 };
 
