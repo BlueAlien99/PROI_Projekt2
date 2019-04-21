@@ -19,7 +19,7 @@ class Interface::InterfaceImpl{
 	int *board;
 	uint x, y;
 
-	bool markStroke(uint xx, uint yy, int v, int type){	//DHV
+	bool checkStroke(uint xx, uint yy, int type){
 		if(type & 1){
 			for(uint i = xx; i < x*y; i += x){
 				if(board[i] < 0){
@@ -35,24 +35,47 @@ class Interface::InterfaceImpl{
 			}
 		}
 		if(type & 4){
-
-		}
-		if(type & 1){
-			for(uint i = xx; i < x*y; i += x){
-				board[i] += v;
-			}
-		}
-		if(type & 2){
-			for(uint i = yy*x; i < (yy+1)*x; i += 1){
-				board[i] += v;
-			}
-		}
-		if(type & 4){
-			{//for(int i = ; i < ; i += ){
-				//board[i] += v;
+			for(int i = xx; i < x*y; i += x){
+				if(xx-abs(yy-(i/x)) >= 0 && board[i-abs(yy-(i/x))] < 0){
+					return 0;
+				}
+				if(xx+abs(yy-(i/x)) < x && board[i+abs(yy-(i/x))] < 0){
+					return 0;
+				}
 			}
 		}
 		return 1;
+	}
+
+	bool checkSquare(uint xx, uint yy, vector<pair<int,int> > vec){
+		
+	}
+
+	void markStroke(uint xx, uint yy, int v, int type){
+		if(type & 1){
+			for(uint i = xx; i < x*y; i += x){
+				board[i] += v;
+			}
+		}
+		if(type & 2){
+			for(uint i = yy*x; i < (yy+1)*x; i += 1){
+				board[i] += v;
+			}
+		}
+		if(type & 4){
+			for(int i = xx; i < x*y; i += x){
+				if(xx-abs(yy-(i/x)) >= 0){
+					board[i-abs(yy-(i/x))] += v;
+				}
+				if(xx+abs(yy-(i/x)) < x){
+					board[i+abs(yy-(i/x))] += v;
+				}
+			}
+		}
+	}
+
+	void markSquare(uint xx, uint yy, int v, vector<pair<int,int> > vec){
+
 	}
 
 public:
@@ -124,12 +147,20 @@ public:
 			if(!isSqFree(nx, ny)){
 				continue;
 			}
-			//TODO place
-			
-			if(algoPlace<T>(piece, nx, ny, n+1)){
-				return 1;
+			if(checkStroke(nx, ny, piece->moveChar()) &&
+					checkSquare(nx, ny, piece->moveSquares())){
+				markStroke(nx, ny, 1, piece->moveChar());
+				markSquare(nx, ny, 1, piece->moveSquares());
+				board[i] = piece->getID();
+				piece->setLocation(n-1, nx, ny);
+				if(algoPlace<T>(piece, nx, ny, n+1)){
+					return 1;
+				}
+				piece->setLocation(n-1, -1, -1);
+				board[i] = 0;
+				markSquare(nx, ny, -1, piece->moveSquares());
+				markStroke(nx, ny, -1, piece->moveChar());
 			}
-			//TODO revert
 		}
 		return 0;
 	}

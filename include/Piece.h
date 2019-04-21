@@ -6,6 +6,7 @@
 class Piece{
 protected:
 	struct Moves{
+		int id;
 		int count;
 		bool v, h, d;
 		std::vector<std::pair<int,int> > sq;
@@ -17,6 +18,7 @@ public:
 	Piece();
 	~Piece();
 	Piece(const Piece &piece);
+	int getID();
 	void setLocation(int x, int y);
 	std::pair<int,int> getLocation();
 	int moveChar();

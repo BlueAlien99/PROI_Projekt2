@@ -12,6 +12,7 @@ class PieceInterface{
 public:
 	PieceInterface(int n = 0);
 	~PieceInterface();
+	int getID();
 	void setLocation(uint n, int x, int y);
 	std::pair<int,int> getLocation(uint n);
 	int moveChar();

@@ -26,6 +26,14 @@ PieceInterface<T>::~PieceInterface(){
 }
 
 template <class T>
+int PieceInterface<T>::getID(){
+	if(pieces.size() > 0){
+		return pieces[0]->getID();
+	}
+	return -100;
+}
+
+template <class T>
 void PieceInterface<T>::setLocation(uint n, int x, int y){
 	if(n < pieces.size()){
 		pieces[n]->setLocation(x, y);
