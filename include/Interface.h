@@ -12,7 +12,7 @@ public:
 	~Interface();
 	int isSqFree(uint xx, uint yy);
 	bool algorithm();
-	void printBoard();
+	void printBoard(bool debug);
 };
 
 #endif

@@ -171,7 +171,7 @@ public:
 		if(algoPlace<Queen>(queens, 0, 0, 1) && algoPlace<Rook>(rooks, 0, 0, 1)
 		&& algoPlace<Bishop>(bishops, 0, 0, 1) && algoPlace<King>(kings, 0, 0, 1)
 		&& algoPlace<Knight>(knights, 0, 0, 1) && algoPlace<Pawn>(pawns, 0, 0, 1)){
-			printBoard();
+			printBoard(0);
 			return 1;
 		} else{
 			cout<<endl<<"Placement impossible!"<<endl;
@@ -179,7 +179,7 @@ public:
 		}
 	}
 
-	void printBoard(){
+	void printBoard(bool debug){
 		cout<<endl<<"  ";
 		for(uint i = 0; i < x; ++i){
 			cout<<i%10;
@@ -191,12 +191,15 @@ public:
 		for(uint i = 0; i < y; ++i){
 			cout<<endl<<i%10<<' ';
 			for(uint j = 0; j < x; ++j){
-				if(board[i*x + j] > 0){
+				if(debug && board[i*x + j] > 0){
 					if(board[i*x + j] > 9){
 						cout<<'*';
 					} else{
 						cout<<abs(board[i*x + j])%10;
 					}
+				}
+				else if(board[i*x + j] > 0){
+					cout<<'-';
 				} else{
 					switch(board[i*x + j]){
 						case 0:
@@ -246,6 +249,6 @@ bool Interface::algorithm(){
 	return impl->algorithm();
 }
 
-void Interface::printBoard(){
-	impl->printBoard();
+void Interface::printBoard(bool debug){
+	impl->printBoard(debug);
 }

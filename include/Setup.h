@@ -13,6 +13,7 @@ public:
 	void run();
 	void newBoard();
 	void algorithm();
+	void printDebBoard();
 };
 
 #endif
