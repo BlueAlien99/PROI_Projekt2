@@ -51,6 +51,9 @@ public:
 	}
 
 	void newBoard(){
+		if(interface){
+			delete interface;
+		}
 		cout<<endl<<"Enter following info:";
 		cout<<endl<<"Width Height Pawns Rooks Bishops Queens Knights Kings"<<endl;
 		uint x = Utilities::get_uint();
