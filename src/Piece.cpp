@@ -45,10 +45,8 @@ vector<pair<int,int> > Piece::moveSquares(){
 
 Pawn::Pawn(){
 	mv->id = -10;
-	mv->sq.push_back(make_pair(0, 1));
 	mv->sq.push_back(make_pair(1, 1));
 	mv->sq.push_back(make_pair(1, -1));
-	mv->sq.push_back(make_pair(0, -1));
 	mv->sq.push_back(make_pair(-1, -1));
 	mv->sq.push_back(make_pair(-1, 1));
 }

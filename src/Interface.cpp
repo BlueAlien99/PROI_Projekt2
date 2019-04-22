@@ -168,8 +168,8 @@ public:
 	}
 
 	bool algorithm(){
-		if(algoPlace<Queen>(queens, 0, 0, 1) && algoPlace<Rook>(rooks, 0, 0, 1)
-		&& algoPlace<Bishop>(bishops, 0, 0, 1) && algoPlace<King>(kings, 0, 0, 1)
+		if(algoPlace<King>(kings, 0, 0, 1) && algoPlace<Rook>(rooks, 0, 0, 1)
+		&& algoPlace<Bishop>(bishops, 0, 0, 1) && algoPlace<Queen>(queens, 0, 0, 1)
 		&& algoPlace<Knight>(knights, 0, 0, 1) && algoPlace<Pawn>(pawns, 0, 0, 1)){
 			printBoard(0);
 			return 1;
