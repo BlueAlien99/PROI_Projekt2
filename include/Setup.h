@@ -8,6 +8,11 @@ class Setup{
 	std::unique_ptr<SetupImpl> impl;
 public:
 	Setup();
+	~Setup();
+	void help();
+	void run();
+	void newBoard();
+	void algorithm();
 };
 
 #endif
