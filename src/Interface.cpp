@@ -35,11 +35,12 @@ class Interface::InterfaceImpl{
 			}
 		}
 		if(type & 4){
-			for(int i = xx; i < x*y; i += x){
-				if(xx-abs(yy-(i/x)) >= 0 && board[i-abs(yy-(i/x))] < 0){
+			for(uint i = xx; i < x*y; i += x){
+				int pos = abs((int)(yy-(i/x)));
+				if((int)(xx-pos) >= 0 && board[i-pos] < 0){
 					return 0;
 				}
-				if(xx+abs(yy-(i/x)) < x && board[i+abs(yy-(i/x))] < 0){
+				if(xx+pos < x && board[i+pos] < 0){
 					return 0;
 				}
 			}
@@ -48,7 +49,14 @@ class Interface::InterfaceImpl{
 	}
 
 	bool checkSquare(uint xx, uint yy, vector<pair<int,int> > vec){
-		
+		for(uint i = 0; i < vec.size(); ++i){
+			if((int)(xx+vec[i].first) >= 0 && xx+vec[i].first < x
+			&& (int)(yy+vec[i].second) >= 0 && yy+vec[i].second < y
+			&& board[(yy+vec[i].second)*x + xx+vec[i].first] < 0){
+				return 0;
+			}
+		}
+		return 1;
 	}
 
 	void markStroke(uint xx, uint yy, int v, int type){
@@ -63,19 +71,25 @@ class Interface::InterfaceImpl{
 			}
 		}
 		if(type & 4){
-			for(int i = xx; i < x*y; i += x){
-				if(xx-abs(yy-(i/x)) >= 0){
-					board[i-abs(yy-(i/x))] += v;
+			for(uint i = xx; i < x*y; i += x){
+				int pos = abs((int)(yy-(i/x)));
+				if((int)(xx-pos) >= 0){
+					board[i-pos] += v;
 				}
-				if(xx+abs(yy-(i/x)) < x){
-					board[i+abs(yy-(i/x))] += v;
+				if(xx+pos < x){
+					board[i+pos] += v;
 				}
 			}
 		}
 	}
 
 	void markSquare(uint xx, uint yy, int v, vector<pair<int,int> > vec){
-
+		for(uint i = 0; i < vec.size(); ++i){
+			if((int)(xx+vec[i].first) >= 0 && xx+vec[i].first < x
+			&& (int)(yy+vec[i].second) >= 0 && yy+vec[i].second < y){
+				board[(yy+vec[i].second)*x + xx+vec[i].first] += v;
+			}
+		}
 	}
 
 public:
