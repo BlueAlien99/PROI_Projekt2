@@ -20,7 +20,7 @@ int main(){
 	//cout<<teest.moveChar()<<endl;
 	//cout<<tee.moveSquares().size();
 
-	Interface in(4,4,4);
+	Interface in(4,4,5,1);
 	in.algorithm();
 
 	//Interface *inter = new Interface(4, 8, 1, 2, 3, 4, 5, 6);
