@@ -153,7 +153,7 @@ public:
 		delete queens;
 		delete knights;
 		delete kings;
-		delete board;
+		delete [] board;
 	}
 
 	int isSqFree(uint xx, uint yy){
