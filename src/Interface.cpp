@@ -20,7 +20,7 @@ class Interface::InterfaceImpl{
 	uint x, y;
 
 	template <class T>
-	bool algoPlace(PieceInterface<T> *piece, uint xx, uint yy, int n){
+	bool algoPlace(PieceInterface<T> *piece, uint xx, uint yy, int n, int fig){
 		if(n > piece->getCount()){
 			return 1;
 		}
@@ -40,7 +40,8 @@ class Interface::InterfaceImpl{
 				markSquare(nx, ny, 1, piece->moveSquares());
 				board[i] = piece->getID();
 				piece->setLocation(n-1, nx, ny);
-				if(algoPlace<T>(piece, nx, ny, n+1)){
+				if(countFree() >= fig-1
+						&& algoPlace<T>(piece, nx, ny, n+1, fig-1)){
 					return 1;
 				}
 				piece->setLocation(n-1, -1, -1);
@@ -125,6 +126,16 @@ class Interface::InterfaceImpl{
 		}
 	}
 
+	int countFree(){
+		int fr = 0;
+		for(uint i = 0; i < x*y; ++i){
+			if(board[i] == 0){
+				++fr;
+			}
+		}
+		return fr;
+	}
+
 public:
 
 	InterfaceImpl(uint xx, uint yy, uint pa, uint ro,
@@ -168,9 +179,14 @@ public:
 	}
 
 	bool algorithm(){
-		if(algoPlace<King>(kings, 0, 0, 1) && algoPlace<Rook>(rooks, 0, 0, 1)
-		&& algoPlace<Bishop>(bishops, 0, 0, 1) && algoPlace<Queen>(queens, 0, 0, 1)
-		&& algoPlace<Knight>(knights, 0, 0, 1) && algoPlace<Pawn>(pawns, 0, 0, 1)){
+		int fig = pawns->getCount() + rooks->getCount() + bishops->getCount()
+				+ kings->getCount() + knights->getCount() + queens->getCount();
+		if(algoPlace<King>(kings, 0, 0, 1, fig)
+				&& algoPlace<Rook>(rooks, 0, 0, 1, (fig -= kings->getCount()))
+				&& algoPlace<Bishop>(bishops, 0, 0, 1, (fig -= rooks->getCount()))
+				&& algoPlace<Queen>(queens, 0, 0, 1, (fig -= bishops->getCount()))
+				&& algoPlace<Pawn>(pawns, 0, 0, 1, (fig -= queens->getCount()))
+				&& algoPlace<Knight>(knights, 0, 0, 1, (fig -= pawns->getCount()))){
 			printBoard(0);
 			return 1;
 		} else{
