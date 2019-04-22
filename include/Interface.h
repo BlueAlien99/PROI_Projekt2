@@ -7,8 +7,8 @@ class Interface{
 	class InterfaceImpl;
 	std::unique_ptr<InterfaceImpl> impl;
 public:
-	Interface(uint xx, uint yy, uint pa, uint ro,
-			uint bi, uint qu, uint kn, uint ki);
+	Interface(uint xx, uint yy, uint pa = 0, uint ro = 0,
+			uint bi = 0, uint qu = 0, uint kn = 0, uint ki = 0);
 	~Interface();
 	int isSqFree(uint xx, uint yy);
 	bool algorithm();

@@ -19,6 +19,39 @@ class Interface::InterfaceImpl{
 	int *board;
 	uint x, y;
 
+	template <class T>
+	bool algoPlace(PieceInterface<T> *piece, uint xx, uint yy, int n){
+		if(n > piece->getCount()){
+			return 1;
+		}
+		for(uint i = yy*x + xx; i < x*y; ++i){
+			uint ny = i/x;
+			uint nx = i - x*ny;
+			if(isSqFree(nx, ny) == -1){
+				cout<<"algoPlace out of board: "<<nx<<' '<<ny;
+				exit(EXIT_FAILURE);
+			}
+			if(!isSqFree(nx, ny)){
+				continue;
+			}
+			if(checkStroke(nx, ny, piece->moveChar()) &&
+					checkSquare(nx, ny, piece->moveSquares())){
+				markStroke(nx, ny, 1, piece->moveChar());
+				markSquare(nx, ny, 1, piece->moveSquares());
+				board[i] = piece->getID();
+				piece->setLocation(n-1, nx, ny);
+				if(algoPlace<T>(piece, nx, ny, n+1)){
+					return 1;
+				}
+				piece->setLocation(n-1, -1, -1);
+				board[i] = 0;
+				markSquare(nx, ny, -1, piece->moveSquares());
+				markStroke(nx, ny, -1, piece->moveChar());
+			}
+		}
+		return 0;
+	}
+
 	bool checkStroke(uint xx, uint yy, int type){
 		if(type & 1){
 			for(uint i = xx; i < x*y; i += x){
@@ -144,39 +177,6 @@ public:
 			cout<<endl<<"Placement impossible!"<<endl;
 			return 0;
 		}
-	}
-
-	template <class T>
-	bool algoPlace(PieceInterface<T> *piece, uint xx, uint yy, int n){
-		if(n > piece->getCount()){
-			return 1;
-		}
-		for(uint i = yy*x + xx; i < x*y; ++i){
-			uint ny = i/x;
-			uint nx = i - x*ny;
-			if(isSqFree(nx, ny) == -1){
-				cout<<"algoPlace out of board: "<<nx<<' '<<ny;
-				exit(EXIT_FAILURE);
-			}
-			if(!isSqFree(nx, ny)){
-				continue;
-			}
-			if(checkStroke(nx, ny, piece->moveChar()) &&
-					checkSquare(nx, ny, piece->moveSquares())){
-				markStroke(nx, ny, 1, piece->moveChar());
-				markSquare(nx, ny, 1, piece->moveSquares());
-				board[i] = piece->getID();
-				piece->setLocation(n-1, nx, ny);
-				if(algoPlace<T>(piece, nx, ny, n+1)){
-					return 1;
-				}
-				piece->setLocation(n-1, -1, -1);
-				board[i] = 0;
-				markSquare(nx, ny, -1, piece->moveSquares());
-				markStroke(nx, ny, -1, piece->moveChar());
-			}
-		}
-		return 0;
 	}
 
 	void printBoard(){
