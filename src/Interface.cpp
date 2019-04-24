@@ -247,6 +247,18 @@ public:
 		}
 		cout<<endl;
 	}
+
+	void printConfig(){
+		cout<<endl;
+		cout<<"Width   = "<<x<<endl;
+		cout<<"Height  = "<<y<<endl;
+		cout<<"Pawns   = "<<pawns->getCount()<<endl;
+		cout<<"Rooks   = "<<rooks->getCount()<<endl;
+		cout<<"Bishops = "<<bishops->getCount()<<endl;
+		cout<<"Queens  = "<<queens->getCount()<<endl;
+		cout<<"Knights = "<<knights->getCount()<<endl;
+		cout<<"Kings   = "<<kings->getCount()<<endl;
+	}
 };
 
 Interface::Interface(uint xx, uint yy, uint pa, uint ro,
@@ -267,4 +279,8 @@ bool Interface::algorithm(){
 
 void Interface::printBoard(bool debug){
 	impl->printBoard(debug);
+}
+
+void Interface::printConfig(){
+	impl->printConfig();
 }

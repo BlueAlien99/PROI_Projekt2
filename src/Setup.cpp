@@ -59,7 +59,8 @@ public:
 			delete interface;
 		}
 		cout<<endl<<"Enter following info:";
-		cout<<endl<<"Width Height Pawns Rooks Bishops Queens Knights Kings"<<endl;
+		cout<<endl<<"Width Height Pawns Rooks Bishops Queens Knights Kings";
+		cout<<endl<<"W H P R B Q N K"<<endl;
 		uint x = Utilities::get_uint();
 		uint y = Utilities::get_uint();
 		uint pa = Utilities::get_uint();
@@ -68,16 +69,8 @@ public:
 		uint qu = Utilities::get_uint();
 		uint kn = Utilities::get_uint();
 		uint ki = Utilities::get_uint();
-		cout<<endl;
-		cout<<"Width   = "<<x<<endl;
-		cout<<"Height  = "<<y<<endl;
-		cout<<"Pawns   = "<<pa<<endl;
-		cout<<"Rooks   = "<<ro<<endl;
-		cout<<"Bishops = "<<bi<<endl;
-		cout<<"Queens  = "<<qu<<endl;
-		cout<<"Knights = "<<kn<<endl;
-		cout<<"Kings   = "<<ki<<endl;
 		interface = new Interface(x, y, pa, ro, bi, qu, kn, ki);
+		interface->printConfig();
 	}
 
 	void algorithm(){

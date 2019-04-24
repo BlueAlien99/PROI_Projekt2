@@ -13,6 +13,7 @@ public:
 	int isSqFree(uint xx, uint yy);
 	bool algorithm();
 	void printBoard(bool debug);
+	void printConfig();
 };
 
 #endif
