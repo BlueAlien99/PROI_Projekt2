@@ -1,8 +1,6 @@
 #include "../include/Tests.h"
 #include "../include/Setup.h"
 
-using namespace std;
-
 int main(){
 	Tests tests;
 	tests.run();
