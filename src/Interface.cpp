@@ -45,9 +45,9 @@ class Interface::InterfaceImpl{
 					return 1;
 				}
 				piece->setLocation(n-1, -1, -1);
-				board[i] = 0;
 				markSquare(nx, ny, -1, piece->moveSquares());
 				markStroke(nx, ny, -1, piece->moveChar());
+				board[i] = 0;
 			}
 		}
 		return 0;
@@ -196,16 +196,13 @@ public:
 	}
 
 	void printBoard(bool debug){
-		cout<<endl<<"  ";
+		cout<<endl<<"   ";
 		for(uint i = 0; i < x; ++i){
-			cout<<i%10;
+			cout<<i%10<<' ';
 		}
-		cout<<endl<<"  ";
-		for(uint i = 0; i < x; ++i){
-			cout<<' ';
-		}
+		cout<<endl;
 		for(uint i = 0; i < y; ++i){
-			cout<<endl<<i%10<<' ';
+			cout<<endl<<i%10<<"  ";
 			for(uint j = 0; j < x; ++j){
 				if(debug && board[i*x + j] > 0){
 					if(board[i*x + j] > 9){
@@ -243,6 +240,7 @@ public:
 							cout<<'x';
 					}
 				}
+				cout<<' ';
 			}
 		}
 		cout<<endl;
