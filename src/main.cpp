@@ -4,6 +4,8 @@
 using namespace std;
 
 int main(){
+	Tests tests;
+	tests.run();
 	Setup setup;
 	setup.help();
 	setup.run();
